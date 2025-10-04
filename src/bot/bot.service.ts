@@ -136,10 +136,16 @@ export class BotService implements OnModuleInit {
       const chatId = ctx.chat.id.toString();
       await this.messageModel.updateOne({ chatId }, { phoneNumber });
       this.userSteps.delete(ctx.chat.id);
+      const keyboard = Markup.inlineKeyboard([
+        [Markup.button.url("🔗 Kanalga o'tish", `https://t.me/inklyuziv_talim_uz`)],
+      ]);
+
       await ctx.reply(
-        '✅ Ma’lumotlaringiz to’liq saqlandi. Rahmat!\n\nTelefon raqamingiz: ' + phoneNumber,
+        "\n\nBizni Telegram ijtimoiy tarmog‘da kuzatib borish uchun kanalga a'zo bo'ling: ",
+        keyboard,
       );
-      await ctx.reply('Jarayon tugadi.', Markup.removeKeyboard());
+
+      await ctx.reply('✅ Ma’lumotlaringiz to’liq saqlandi. Rahmat!', Markup.removeKeyboard());
     });
 
     // Hudud tanlash
